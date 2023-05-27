@@ -20,9 +20,10 @@ inline fun <T, KeyT> Collection<T>.insertBy(addingElements: Collection<T>, keySe
 /**
  * [this] の各要素に対し [addingElements] の各要素で 上書き します。
  *
- * [keySelector] で指定された [KeyT] の値が [this] にすでに存在しなければ例外をスローします。
+ * [keySelector] で指定された [KeyT] の値が [this] に存在しなければ [NoSuchElementException] をスローします。
  * */
 inline fun <T, KeyT> Collection<T>.updateBy(addingElements: Collection<T>, keySelector: (T) -> KeyT): List<T> {
-    if (this.hasDifferenceBy(addingElements, keySelector)) throw NoSuchElementException()
+    if (this.containsAll(addingElements, keySelector))
+        throw NoSuchElementException("更新したい対象が存在しません。this:${this}。 addingElements:${addingElements}")
     return this.upsertBy(addingElements, keySelector)
 }

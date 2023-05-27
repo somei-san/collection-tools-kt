@@ -13,6 +13,12 @@ inline fun <T, KeyT> Collection<T>.hasDifferenceBy(compared: Collection<T>, keyS
     return receiverKeys.difference(comparedKeys).any()
 }
 
+/**
+ * [keySelector] で指定された要素において、[elements] のすべての要素が [this] に含有されていれば true を返します。
+ * */
+inline fun <T, KeyT> Collection<T>.containsAll(elements: Collection<T>, keySelector: (T) -> KeyT): Boolean =
+    this.map { keySelector(it) }.containsAll(elements.map { keySelector(it) })
+
 /** 差集合を返します */
 fun <T> Set<T>.difference(other: Set<T>): Set<T> = this.minus(other) + other.minus(this)
 
