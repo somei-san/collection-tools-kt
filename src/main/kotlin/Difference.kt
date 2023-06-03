@@ -1,20 +1,20 @@
 /**
  * [this] と [compared] の集合をとって、差分があれば true を返します。
  * */
-fun <T> Collection<T>.hasDifference(compared: Collection<T>): Boolean = this.difference(compared).any()
+fun <T> Collection<T>.hasDifferenceTo(compared: Collection<T>): Boolean = this.difference(compared).any()
 
 
 /**
- * [this] と [compared] に対し [keySelector] で指定された要素の集合をとって、差分があれば true を返します。
+ * [this] と [compared] に対し [keySelector] で指定されたキーの集合をとって、差分があれば true を返します。
  * */
-inline fun <T, KeyT> Collection<T>.hasDifferenceBy(compared: Collection<T>, keySelector: (T) -> KeyT): Boolean {
+inline fun <T, KeyT> Collection<T>.hasDifferenceTo(compared: Collection<T>, keySelector: (T) -> KeyT): Boolean {
     val receiverKeys = this.map { keySelector(it) }
     val comparedKeys = compared.map { keySelector(it) }
     return receiverKeys.difference(comparedKeys).any()
 }
 
 /**
- * [keySelector] で指定された要素において、[elements] のすべての要素が [this] に含有されていれば true を返します。
+ * [keySelector] で指定されたキーにおいて、[elements] のすべてのキーが [this] のキーに含有されていれば true を返します。
  * */
 inline fun <T, KeyT> Collection<T>.containsAll(elements: Collection<T>, keySelector: (T) -> KeyT): Boolean =
     this.map { keySelector(it) }.containsAll(elements.map { keySelector(it) })

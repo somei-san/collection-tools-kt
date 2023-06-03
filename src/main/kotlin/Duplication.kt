@@ -8,10 +8,10 @@ inline fun <reified T> Collection<T>.hasDuplicate(): Boolean {
 }
 
 /**
- * [keySelector] で指定された要素が重複していたら true を返します。
+ * [keySelector] で指定されたキーが重複していたら true を返します。
  * */
-inline fun <reified T, reified R> Collection<T>.hasDuplicateBy(keySelector: (T) -> R): Boolean {
-    val set = mutableSetOf<R>()
+inline fun <reified T, reified KeyT> Collection<T>.hasDuplicateBy(keySelector: (T) -> KeyT): Boolean {
+    val set = mutableSetOf<KeyT>()
     this.forEach { if (set.add(keySelector(it)).not()) return true }
     return false
 }
