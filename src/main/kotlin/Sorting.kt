@@ -1,5 +1,3 @@
-import javax.xml.crypto.KeySelector
-
 /** [this] がソートされていたら true を返します */
 fun <T : Comparable<T>> List<T>.isSorted(): Boolean =
     this.asSequence().zipWithNext { a, b -> a.compareTo(b) }.all { it <= 0 }
